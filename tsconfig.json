@@ -20,6 +20,19 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
+  // Setup đường dẫn absolute
+  "baseUrl": ".",
+  "paths": {
+    "@/*": [
+      "src/*"
+    ],
+    "src/*": [
+      "src/*"
+    ],
+    "~/*": [
+      "public/*"
+    ]
+  },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

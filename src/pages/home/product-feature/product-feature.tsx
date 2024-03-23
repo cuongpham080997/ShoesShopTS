@@ -9,6 +9,12 @@ import { useEffect, useState } from "react";
 import { axiosWithoutAuth } from "@/services/axios.config";
 //@ts-ignore
 import { TCard } from "@/components/list-card/card/card.type";
+//@ts-ignore
+import { BASE_URL } from "@/constants";
+//@ts-ignore
+import { getProduct } from "@/services/product/product.service";
+import { IIFE } from "../../../utils";
+
 export function ProductFeature() {
     // const numbers = [1, 2, 3, 4, 5];
     const [cards, setCards] = useState<TCard[]>([]);
@@ -42,7 +48,7 @@ export function ProductFeature() {
     // useEffect(() => {
     //     // 200
     //     axios
-    //         .get(`${BASE_URL}/api/Product`)
+    //         .get(`${BASE_URL}/Product`)
     //         .then((resp) => {
     //             const data = resp.data; // undefined
 
@@ -64,13 +70,29 @@ export function ProductFeature() {
     // V.3:
     useEffect(() => {
         // 200
-        axiosWithoutAuth
-            .get(`/api/Product`)
-            .then((resp:any) => {
-                const data = resp.data; // undefined
+        // axiosWithoutAuth
+        //     .get(`/Product`)
+        //     .then((resp) => {
+        //         const data = resp.data; // undefined
 
-                // Cẩn thận thêm 1 chút:
-                // data?.message: data !== null && data !== undefined && data.message
+        //         // Cẩn thận thêm 1 chút:
+        //         // data?.message: data !== null && data !== undefined && data.message
+        //         if (data?.message === "Thành công!") {
+        //             const content = data.content;
+
+        //             setCards(convertToCards(content));
+        //         } else {
+        //             console.log("Error ::: ", data);
+        //         }
+        //     })
+        //     .catch((e) => {
+        //         console.log(e);
+        //     });
+        //! Tối ưu refactor  version 3:
+        //* Cách 3: Dùng async + await + IIFE
+        IIFE(async () => {
+            try {
+                const data = await getProduct();
                 if (data?.message === "Thành công!") {
                     const content = data.content;
 
@@ -78,10 +100,38 @@ export function ProductFeature() {
                 } else {
                     console.log("Error ::: ", data);
                 }
-            })
-            .catch((e) => {
-                console.log(e);
-            });
+            } catch (e) {
+                console.log({ e });
+            }
+        });
+
+        //* Cách 2: Dùng promise
+        // getProduct()
+        //     .then((data:any) => {
+        //         if (data?.message === "Thành công!") {
+        //             const content = data.content;
+
+        //             setCards(convertToCards(content));
+        //         } else {
+        //             console.log("Error ::: ", data);
+        //         }
+        //     })
+        //     .catch((e:any) => {
+        //         console.log(e);
+        //     });
+
+        //*Cách 1:dùng call back function
+        // getProduct((resp: any) => {
+        //     const data = resp.data;
+
+        //     if (data?.message === "Thành công!") {
+        //         const content = data.content;
+
+        //         setCards(convertToCards(content));
+        //     } else {
+        //         console.log("Error ::: ", data);
+        //     }
+        // });
     }, []);
 
     return (

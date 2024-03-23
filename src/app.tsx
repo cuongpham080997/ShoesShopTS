@@ -4,7 +4,14 @@ import { router } from "./router/router.config.tsx";
 // ** End - Router
 import { GlobalStyle } from "./components/global-style/global-style.tsx";
 
+// ** Redux
+import { store } from "./redux/store.config.ts";
+import { Provider } from "react-redux";
+// ** End - Redux
+
 import { styled } from "styled-components";
+import { useEffect } from "react";
+import { getProfile } from "./services/index.ts";
 // ** Định nghĩa type cho styled-component
 type TH1Props = {
     color: string;
@@ -46,14 +53,17 @@ export function App() {
 
     // ctrl+shift+p: restart ts server
 
+
     return (
         <GlobalStyle>
+            <Provider store={store}>
+                <RouterProvider router={router} />
+            </Provider>
             {/* ReactNode */}
-            <RouterProvider router={router} />
         </GlobalStyle>
     );
 }
 
 // process.env.NODE_MODULE
-// console.log(import.meta.env.VITE_BASE_URL);
+console.log(import.meta.env.VITE_BASE_URL);
 // console.log(proccess.env.VITE_SOME_KEY);

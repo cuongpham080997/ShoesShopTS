@@ -1,5 +1,4 @@
-//@ts-ignore
-import { TCard } from "@/components/list-card/list-card";
+import { TCard } from "@/components/list-card/card/card.type";
 import { TCardApi } from "../__mock-data__";
 
 export const convertToCards = (list: TCardApi[]): TCard[] => {

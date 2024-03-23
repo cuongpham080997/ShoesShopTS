@@ -1,6 +1,6 @@
 import React from "react";
 
-export function LogoIcon() {
+export const LogoIcon = React.memo(function LogoIcon() {
     return (
         <>
             <svg
@@ -34,4 +34,4 @@ export function LogoIcon() {
             </svg>
         </>
     );
-}
+});

@@ -15,7 +15,7 @@ export function Carousel() {
     const carouselRef = useRef(null);
 
     const onChange = (currentSlide: number) => {
-        console.log(currentSlide);
+        // console.log(currentSlide);
     };
 
     return (

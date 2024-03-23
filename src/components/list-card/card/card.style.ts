@@ -51,8 +51,10 @@ export const Button = styled.button<TButton>`
     background-color: ${() => ""}; */
 
     ${(props) => {
+        // Cách 2:
         return VariantButton[props.variant];
 
+        //Cách 1:
         switch (props.variant) {
             case "success": {
                 // style - css

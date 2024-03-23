@@ -15,9 +15,11 @@ import Carts from "../pages/carts/carts";
 import Profile from "../pages/profile/profile";
 import Login from "../pages/login/login";
 import Register from "../pages/register/register";
-import {Search} from "../pages/search/search";
+import { Search } from "../pages/search/search";
 import { UserTemplate } from "../templates/user/user.template";
 import { AdminTemplate } from "../templates/admin/admin.template";
+//@ts-ignore
+import { ScrollToTop } from "@/components/scroll-to-top";
 
 /**
  * Outlet: Giống với props.children
@@ -102,52 +104,60 @@ export const router = createBrowserRouter([
     },
 
     {
-        element: <UserTemplate />,
+        element: <ScrollToTop />,
         children: [
             {
-                path: "",
-                // Lúc sử dụng chưa tải xong, nên sẽ bị lỗi
-                // khắc phục: Suspense
-                element: <Home />,
-            },
-            {
-                path: "detail",
-                // sử dụng trước khi được download về
-                element: <Detail />,
-            },
-            {
-                path: "carts",
-                element: <Carts />,
-                /**
-                 * <UserTemplate>
-                 *  <Suspense>
-                 *      <Carts />
-                 *  </Suspense>
-                 * </UserTemplate>
-                 */
-            },
-            {
-                path: "profile",
-                element: <Profile />,
-            },
+                element: <UserTemplate />,
+                children: [
+                    {
+                        path: "",
+                        // Lúc sử dụng chưa tải xong, nên sẽ bị lỗi
+                        // khắc phục: Suspense
+                        element: <Home />,
+                    },
+                    {
+                        path: "detail/:productId",
+                        // chỉ truyền 1 tham số thì dùng productId
 
-            {
-                path: "search",
-                element: <Search />,
-            },
-        ],
-    },
+                        // query-string dùng cho truyền nhiều tham số. ?q=men &id=10
 
-    {
-        element: <AdminTemplate />,
-        children: [
-            {
-                path: "login",
-                element: <Login />,
+                        // sử dụng trước khi được download về
+                        element: <Detail />,
+                    },
+                    {
+                        path: "carts",
+                        element: <Carts />,
+                        /**
+                         * <UserTemplate>
+                         *  <Suspense>
+                         *      <Carts />
+                         *  </Suspense>
+                         * </UserTemplate>
+                         */
+                    },
+                    {
+                        path: "profile",
+                        element: <Profile />,
+                    },
+
+                    {
+                        path: "search",
+                        element: <Search />,
+                    },
+                ],
             },
             {
-                path: "register",
-                element: <Register />,
+                element: <AdminTemplate />,
+                children: [
+                    {
+                        path: "login",
+                        element: <Login />,
+                    },
+                    {
+                        path: "register",
+                        element: <Register />,
+                    },
+                ],
             },
         ],
     },

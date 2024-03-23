@@ -11,18 +11,7 @@ export function AdminTemplate() {
             {/* <header>Header</header> */}
             <Header />
 
-            <div
-                style={{
-                    display: "flex",
-                    gap: "2rem",
-                }}
-            >
-                <aside>Sidebar</aside>
-
-                <main>
-                    Component Page: <Outlet />
-                </main>
-            </div>
+            <Outlet />
         </>
     );
 }

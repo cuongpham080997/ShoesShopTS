@@ -1,7 +1,7 @@
 export type TCard = {
-    id: string;
+    id: string | number;
     img: string;
     name: string;
     shortDesc: string;
-    price: string;
+    price: string | number;
 };
